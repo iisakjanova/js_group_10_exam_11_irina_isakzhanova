@@ -4,7 +4,7 @@ import {Grid, makeStyles, Typography} from "@material-ui/core";
 
 import {apiURL} from "../../config";
 import Preloader from "../../components/UI/Preloader/Preloader";
-import {getItemById} from "../../store/actions/itemsActions";
+import {deleteItem, getItemById} from "../../store/actions/itemsActions";
 import ButtonWithProgress from "../../components/UI/ButtonWithProgress/ButtonWithProgress";
 
 const useStyles = makeStyles(theme => ({
@@ -32,9 +32,13 @@ const SingleItem = ({match}) => {
     const loading = useSelector(state => state.items.singleLoading);
     const user = useSelector(state => state.users.user);
 
+    const handleDelete = () => {
+        dispatch(deleteItem(item._id));
+    };
+
     let deleteBtn = null;
 
-    if (user?._id === item.user._id) {
+    if (user?._id === item?.user._id) {
         deleteBtn = (
             <ButtonWithProgress
                 type="button"
@@ -42,6 +46,7 @@ const SingleItem = ({match}) => {
                 color="primary"
                 loading={loading}
                 disabled={loading}
+                onClick={handleDelete}
             >
                 Delete item
             </ButtonWithProgress>

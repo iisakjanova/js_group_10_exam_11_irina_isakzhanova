@@ -3,6 +3,9 @@ import {
     ADD_ITEM_REQUEST,
     ADD_ITEM_SUCCESS,
     CLEAN_UP_ITEM_ERROR,
+    DELETE_ITEM_FAILURE,
+    DELETE_ITEM_REQUEST,
+    DELETE_ITEM_SUCCESS,
     GET_ITEM_BY_ID_FAILURE,
     GET_ITEM_BY_ID_REQUEST,
     GET_ITEM_BY_ID_SUCCESS,
@@ -20,6 +23,8 @@ const initialState = {
     fetchError: null,
     singleLoading: false,
     singleError: null,
+    deleteLoading: false,
+    deleteError: null,
 };
 
 const itemsReducer = (state = initialState, action) => {
@@ -44,6 +49,12 @@ const itemsReducer = (state = initialState, action) => {
             return {...state, singleLoading: false, item: action.payload, singleError: null};
         case GET_ITEM_BY_ID_FAILURE:
             return {...state, singleLoading: false, singleError: action.payload};
+        case DELETE_ITEM_REQUEST:
+            return {...state, deleteLoading: true};
+        case DELETE_ITEM_SUCCESS:
+            return {...state, deleteLoading: false, deleteError: null};
+        case DELETE_ITEM_FAILURE:
+            return {...state, deleteLoading: false, deleteError: action.payload};
         default:
             return state;
     }

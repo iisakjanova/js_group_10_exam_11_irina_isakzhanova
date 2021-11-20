@@ -16,6 +16,10 @@ export const GET_ITEM_BY_ID_REQUEST = 'GET_ITEM_BY_ID_REQUEST';
 export const GET_ITEM_BY_ID_SUCCESS = 'GET_ITEM_BY_ID_SUCCESS';
 export const GET_ITEM_BY_ID_FAILURE = 'GET_ITEM_BY_ID_FAILURE';
 
+export const DELETE_ITEM_REQUEST = 'DELETE_ITEM_REQUEST';
+export const DELETE_ITEM_SUCCESS = 'DELETE_ITEM_SUCCESS';
+export const DELETE_ITEM_FAILURE = 'DELETE_ITEM_FAILURE';
+
 export const addItemRequest = () => ({type: ADD_ITEM_REQUEST});
 export const addItemSuccess = () => ({type: ADD_ITEM_SUCCESS});
 export const addItemFailure = error => ({type: ADD_ITEM_FAILURE, payload: error});
@@ -29,6 +33,11 @@ export const getItemsFailure = error => ({type: GET_ITEMS_FAILURE, payload: erro
 export const getItemByIdRequest = () => ({type: GET_ITEM_BY_ID_REQUEST});
 export const getItemByIdSuccess = data => ({type: GET_ITEM_BY_ID_SUCCESS, payload: data});
 export const getItemByIdFailure = error => ({type: GET_ITEM_BY_ID_FAILURE, payload: error});
+
+export const deleteItemRequest = () => ({type: DELETE_ITEM_REQUEST});
+export const deleteItemSuccess = () => ({type: DELETE_ITEM_SUCCESS});
+export const deleteItemFailure = error => ({type: DELETE_ITEM_FAILURE, payload: error});
+
 
 export const addItem = (data) => {
     return async (dispatch, getState) => {
@@ -85,6 +94,35 @@ export const getItemById = (id) => {
             toast.error('Could not fetch item!', {
                 theme: 'colored',
             });
+        }
+    };
+};
+
+export const deleteItem = (id) => {
+    return async (dispatch, getState) => {
+        const headers = {
+            'Authorization': getState().users.user && getState().users.user.token
+        };
+
+        try {
+            dispatch(deleteItemRequest());
+            await axiosApi.delete('/items/' + id, {headers});
+            dispatch(deleteItemSuccess());
+            toast.success('Item deleted');
+            dispatch(historyReplace('/'));
+        } catch (error) {
+            dispatch(deleteItemFailure(error.message));
+            if (error.response && error.response.data) {
+                dispatch(deleteItemFailure(error.response.data));
+                toast.error('Could not delete item!', {
+                    theme: 'colored',
+                });
+            } else {
+                dispatch(deleteItemFailure({global: 'No internet'}));
+                toast.error('No internet', {
+                    theme: 'colored',
+                });
+            }
         }
     };
 };
