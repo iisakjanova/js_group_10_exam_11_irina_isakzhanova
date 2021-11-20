@@ -6,6 +6,7 @@ const multer = require("multer");
 const Item = require('../models/Item');
 const config = require('../config');
 const auth = require("../middleware/auth");
+const itemsAccess = require("../middleware/itemsAccess");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -67,6 +68,15 @@ router.get('/:id', async (req, res) => {
         } else {
             res.status(404).send({message: 'Item is not found'});
         }
+    } catch (e) {
+        res.status(500).send({message: e.message});
+    }
+});
+
+router.delete('/:id', [auth, itemsAccess], async (req, res) => {
+    try {
+        const item = await Item.findByIdAndRemove(req.params.id);
+        res.send(`Item '${item.title}' is removed`);
     } catch (e) {
         res.status(500).send({message: e.message});
     }
