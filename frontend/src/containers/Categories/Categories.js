@@ -29,6 +29,7 @@ const Categories = () => {
                     ?
                     categories.map(category => (
                         <ListItem
+                            key={category._id}
                             button
                             component="a"
                             href={`/items?category=${category._id}`}
