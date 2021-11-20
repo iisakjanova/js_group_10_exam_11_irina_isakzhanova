@@ -42,4 +42,19 @@ router.post('/', [auth, upload.single('image')], async (req, res) => {
     }
 });
 
+router.get('/', async (req, res) => {
+    try {
+        const query = {};
+
+        if (req.query.category) {
+            query.category = req.query.category;
+        }
+
+        const items = await Item.find(query).populate("user", "username");
+        res.send(items);
+    } catch (e) {
+        res.status(500).send({message: e.message});
+    }
+});
+
 module.exports = router;
