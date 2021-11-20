@@ -61,7 +61,8 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const item = await Item.findById(req.params.id)
-            .populate("user", "username display_name phone_number");
+            .populate("user", "username display_name phone_number")
+            .populate("category", "title");
 
         if (item) {
             res.send(item);

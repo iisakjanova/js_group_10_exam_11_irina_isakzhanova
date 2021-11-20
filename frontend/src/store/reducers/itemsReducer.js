@@ -3,6 +3,9 @@ import {
     ADD_ITEM_REQUEST,
     ADD_ITEM_SUCCESS,
     CLEAN_UP_ITEM_ERROR,
+    GET_ITEM_BY_ID_FAILURE,
+    GET_ITEM_BY_ID_REQUEST,
+    GET_ITEM_BY_ID_SUCCESS,
     GET_ITEMS_FAILURE,
     GET_ITEMS_REQUEST,
     GET_ITEMS_SUCCESS
@@ -35,6 +38,12 @@ const itemsReducer = (state = initialState, action) => {
             return {...state, fetchLoading: false, items: action.payload, fetchError: null};
         case GET_ITEMS_FAILURE:
             return {...state, fetchLoading: false, fetchError: action.payload};
+        case GET_ITEM_BY_ID_REQUEST:
+            return {...state, singleLoading: true};
+        case GET_ITEM_BY_ID_SUCCESS:
+            return {...state, singleLoading: false, item: action.payload, singleError: null};
+        case GET_ITEM_BY_ID_FAILURE:
+            return {...state, singleLoading: false, singleError: action.payload};
         default:
             return state;
     }
