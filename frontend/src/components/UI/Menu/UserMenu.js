@@ -27,7 +27,7 @@ const UserMenu = () => {
                     to="/items/add"
                     className={classes.link}
                 >
-                    Add new post
+                    Add new Item
                 </Button>
             </Grid>
             <Grid item>
