@@ -2,8 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const exitHook = require('async-exit-hook');
+const config = require('./config');
 
 const users = require('./app/users');
+const categories = require('./app/categories');
 
 const app = express();
 app.use(express.json());
@@ -13,9 +15,10 @@ app.use(express.static('public'));
 const port = 8000;
 
 app.use('/users', users);
+app.use('/categories', categories);
 
 const run = async () => {
-    await mongoose.connect('mongodb://localhost/market');
+    await mongoose.connect(config.db.url);
 
     app.listen(port, () => {
         console.log(`Server started on ${port} port!`);
