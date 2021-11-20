@@ -57,4 +57,19 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const item = await Item.findById(req.params.id)
+            .populate("user", "username display_name phone_number");
+
+        if (item) {
+            res.send(item);
+        } else {
+            res.status(404).send({message: 'Item is not found'});
+        }
+    } catch (e) {
+        res.status(500).send({message: e.message});
+    }
+});
+
 module.exports = router;
