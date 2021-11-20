@@ -74,6 +74,7 @@ export const logoutUser = () => {
     return async (dispatch) => {
         await axiosApi.delete('/users/sessions');
         dispatch({type: LOGOUT_USER});
+        toast.success('Logout successful');
         dispatch(historyReplace('/'));
     };
 };

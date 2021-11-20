@@ -13,7 +13,7 @@ const itemAccess = async (req, res, next) => {
     }
 
     if (!item) {
-        return res.status(403).send({error: 'Item is not found'});
+        return res.status(403).send({error: 'Access denied!'});
     }
 
     next();
