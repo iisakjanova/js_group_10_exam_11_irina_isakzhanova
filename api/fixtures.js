@@ -54,7 +54,7 @@ const run = async () => {
             'Audio Outputs: 1 x 3.5mm Combo Audio Jack\n' +
             'Other: No Optical Drive || No Backlit Keyboard\n' +
             'Operating System: Windows 10 Pro\n',
-        image: 'fixtures/computer1.jpg',
+        image: 'fixtures/computer1.jpeg',
         price: 1200,
     }, {
         user: admin,
@@ -73,7 +73,7 @@ const run = async () => {
             'Audio Outputs: 1 x 3.5mm Combo Audio Jack\n' +
             'Other: Micro SD Card Reader || No Optical Drive\n' +
             'Operating System: Windows 10 Home\n',
-        image: 'fixtures/computer2.jpg',
+        image: 'fixtures/computer2.jpeg',
         price: 1300,
     },{
         user: somebody,
@@ -91,7 +91,7 @@ const run = async () => {
             'Audio Outputs: 1 x 3.5mm Combo Jack\n' +
             'Other: No Optical Drive || SD Card Reader || Includes Stylus\n' +
             'Operating System: Windows 10 Pro Academic\n',
-        image: 'fixtures/computer3.jpg',
+        image: 'fixtures/computer3.jpeg',
         price: 1300,
     });
 

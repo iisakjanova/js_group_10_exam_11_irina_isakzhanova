@@ -8,11 +8,19 @@ export const ADD_ITEM_FAILURE = 'ADD_ITEM_FAILURE';
 
 export const CLEAN_UP_ITEM_ERROR = 'CLEAN_UP_ITEM_ERROR';
 
+export const GET_ITEMS_REQUEST = 'GET_ITEMS_REQUEST';
+export const GET_ITEMS_SUCCESS = 'GET_ITEMS_SUCCESS';
+export const GET_ITEMS_FAILURE = 'GET_ITEMS_FAILURE';
+
 export const addItemRequest = () => ({type: ADD_ITEM_REQUEST});
 export const addItemSuccess = () => ({type: ADD_ITEM_SUCCESS});
 export const addItemFailure = error => ({type: ADD_ITEM_FAILURE, payload: error});
 
 export const cleanUpItemError = () => ({type: CLEAN_UP_ITEM_ERROR});
+
+export const getItemsRequest = () => ({type: GET_ITEMS_REQUEST});
+export const getItemsSuccess = data => ({type: GET_ITEMS_SUCCESS, payload: data});
+export const getItemsFailure = error => ({type: GET_ITEMS_FAILURE, payload: error});
 
 export const addItem = (data) => {
     return async (dispatch, getState) => {
@@ -32,6 +40,28 @@ export const addItem = (data) => {
             } else {
                 dispatch(addItemFailure({global: 'No internet'}));
             }
+        }
+    };
+};
+
+export const getItems = (id) => {
+    return async dispatch => {
+        try {
+            dispatch(getItemsRequest());
+
+            let query = '';
+
+            if (id) {
+                query = `?category=${id}`
+            }
+
+            const response = await axiosApi.get(`/items${query}`);
+            dispatch(getItemsSuccess(response.data));
+        } catch (error) {
+            dispatch(getItemsFailure(error.message));
+            toast.error('Could not fetch items!', {
+                theme: 'colored',
+            });
         }
     };
 };
