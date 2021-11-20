@@ -6,6 +6,7 @@ const config = require('./config');
 
 const users = require('./app/users');
 const categories = require('./app/categories');
+const items = require('./app/items');
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,7 @@ const port = 8000;
 
 app.use('/users', users);
 app.use('/categories', categories);
+app.use('/items', items);
 
 const run = async () => {
     await mongoose.connect(config.db.url);

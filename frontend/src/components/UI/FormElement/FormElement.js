@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Grid, TextField} from "@material-ui/core";
 
-const FormElement = ({label, name, value, onChange, required, error, autoComplete, type}) => {
+const FormElement = ({helperText, children, label, name, value, onChange, required, error, autoComplete, type, select}) => {
     return (
         <Grid item xs={12}>
             <TextField
                 variant="outlined"
                 fullWidth
                 type={type}
+                select={select}
                 required={required}
                 autoComplete={autoComplete}
                 label={label}
@@ -16,8 +17,10 @@ const FormElement = ({label, name, value, onChange, required, error, autoComplet
                 value={value}
                 onChange={onChange}
                 error={Boolean(error)}
-                helperText={error}
-            />
+                helperText={helperText || error}
+            >
+                {children}
+            </TextField>
         </Grid>
     );
 };
@@ -30,7 +33,8 @@ FormElement.propTypes = {
     required: PropTypes.bool,
     error: PropTypes.string,
     autoComplete: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    select: PropTypes.bool
 };
 
 export default FormElement;

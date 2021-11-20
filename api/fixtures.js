@@ -6,7 +6,6 @@ const Category = require("./models/Category");
 const User = require("./models/User");
 const Item = require("./models/Item");
 
-
 const run = async () => {
     await mongoose.connect(config.db.url);
 

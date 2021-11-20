@@ -12,6 +12,7 @@ import App from './App';
 import usersReducer from "./store/reducers/usersReducer";
 import history from "./history";
 import categoriesReducer from "./store/reducers/categoriesReducer";
+import itemsReducer from "./store/reducers/itemsReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -41,6 +42,7 @@ const loadFromLocalStorage = () => {
 const rootReducer = combineReducers({
     users: usersReducer,
     categories: categoriesReducer,
+    items: itemsReducer,
 });
 
 const persistedState = loadFromLocalStorage();
